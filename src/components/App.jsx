@@ -3,14 +3,26 @@ import { employee_data } from '../data.js';
 import EmpTable from './EmpTable.jsx';
 import NameFilter from './NameFilter.jsx';
 import DeptFilter from './DeptFilter.jsx';
+import AgeFilter from './AgeFilter.jsx';
 
 const App = () => {
   //**********************************************************************
   // Initialize state with hooks
   //**********************************************************************
+
+  // State for employee lists
   const [empList, updateEmpList] = useState(employee_data);
+
+  // State used for all departments and those clicked
   const [deptList, updateDepartments] = useState([]);
   const [clickedDepts, updateClickedDepts] = useState({});
+
+  // State for age filters
+  const [lowerAge, updateLowerAge] = useState(0);
+  const [upperAge, updateUpperAge] = useState(120);
+
+  // State for name filters
+  const [searchName, updateSearchName] = useState('');
 
 
   //**********************************************************************
@@ -22,8 +34,10 @@ const App = () => {
 
     // Find all departments
     for (const emp of employee_data) {
+
       if (!foundDepts[emp.department]) {
         foundDepts[emp.department] = 'clicked';
+
       }
     }
 
@@ -38,11 +52,29 @@ const App = () => {
   // Helper function that actually filters the list
   //**********************************************************************
   const filterList = () => {
+    // Check to ensure ages are valid
+    if (isNaN(lowerAge) || isNaN(upperAge)) {
+      alert('Please input valid numbers for age parameters');
+      return;
+    } else if (Number(lowerAge) > Number(upperAge)) {
+      alert('Please ensure lower age is less than or equal to upper age');
+      return;
+    }
+
     // Filter list
     const updatedList = employee_data.filter(emp => {
       // Check if department is clicked
       if (clickedDepts[emp.department] === 'clicked') {
-        return true;
+
+        // Check if valid age
+        if (lowerAge <= emp.age && upperAge >= emp.age) {
+
+          // Check if name is being search as well
+          if (searchName.length === 0 || emp.name.includes(searchName)) {
+
+            return true;
+          }
+        }
       }
     })
 
@@ -56,13 +88,26 @@ const App = () => {
   return (
     <div id="app">
       <h1>
-        Welcome to the Employee App!
+        Welcome to Liam's Employee App!
       </h1>
 
       <br/>
+
+      <h3> Filter Parameters: </h3>
+
       <br/>
 
-      <NameFilter />
+      <NameFilter
+        searchName={searchName}
+        updateSearchName={updateSearchName}
+      />
+      <br/>
+      <AgeFilter
+        lowerAge={lowerAge}
+        upperAge={upperAge}
+        updateLowerAge={updateLowerAge}
+        updateUpperAge={updateUpperAge}
+      />
       <br/>
       <DeptFilter
         allDepts={deptList}
@@ -75,7 +120,9 @@ const App = () => {
 
       <button
         onClick={(e) => {
-          console.log(`Clicked. ${JSON.stringify(clickedDepts)}`);
+          // Filter the list when this button is clicked
+          //console.log(`Clicked. ${JSON.stringify(clickedDepts)}`);
+          console.log(`Clicked. ${lowerAge}, ${upperAge}`);
           filterList();
         }}
       >

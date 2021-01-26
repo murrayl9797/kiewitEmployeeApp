@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NameFilter = ( { } ) => {
+const NameFilter = ( { searchName, updateSearchName } ) => {
 
   //**********************************************************************
   // Render DOM
@@ -10,6 +10,10 @@ const NameFilter = ( { } ) => {
       Search for an employee by name:{' '}
       <input
         placeholder="Name ... "
+        value={searchName}
+        onChange={(e) => {
+          updateSearchName(e.target.value);
+        }}
       >
       </input>
     </div>
