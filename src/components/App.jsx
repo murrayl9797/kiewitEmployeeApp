@@ -29,7 +29,8 @@ const App = () => {
   //**********************************************************************
   // useEffect to update department list (using example data)
   //**********************************************************************
-  useEffect(() => {
+  //Modularize for use elsewhere if need be
+  const initDepts = () => {
     // Update department list
     const foundDepts = {};
 
@@ -45,7 +46,11 @@ const App = () => {
     // Add to React state
     updateDepartments(Object.keys(foundDepts));
     updateClickedDepts(foundDepts);
+  }
 
+  useEffect(() => {
+    // Initialize departments on page mount
+    initDepts();
   }, [employee_data]);
 
 
@@ -82,6 +87,7 @@ const App = () => {
     // Update React state
     updateEmpList(updatedList);
   }
+
 
   //**********************************************************************
   // Render DOM
