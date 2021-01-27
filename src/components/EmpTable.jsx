@@ -7,7 +7,7 @@ const EmpTable = ( { list } ) => {
   // Render DOM
   //**********************************************************************
   return (
-    <table>
+    <table className="empTable">
       <thead>
         <tr>
           <th> Name </th>

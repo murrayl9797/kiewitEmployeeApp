@@ -11,7 +11,7 @@ const AgeFilter = ( { lowerAge, updateLowerAge, upperAge, updateUpperAge } ) => 
   //**********************************************************************
   return (
     <div>
-      Lower Bound Age:
+      Lower Bound Age:{' '}
       <input
         value={lowerAge}
         onChange={(e) => {
@@ -22,7 +22,7 @@ const AgeFilter = ( { lowerAge, updateLowerAge, upperAge, updateUpperAge } ) => 
 
       <br/>
 
-      Upper Bound Age:
+      Upper Bound Age:{' '}
       <input
         value={upperAge}
         onChange={(e) => {

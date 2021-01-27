@@ -5,6 +5,7 @@ import NameFilter from './NameFilter.jsx';
 import DeptFilter from './DeptFilter.jsx';
 import AgeFilter from './AgeFilter.jsx';
 
+
 const App = () => {
   //**********************************************************************
   // Initialize state with hooks
@@ -26,7 +27,7 @@ const App = () => {
 
 
   //**********************************************************************
-  // Use Effect to update department list (using example data)
+  // useEffect to update department list (using example data)
   //**********************************************************************
   useEffect(() => {
     // Update department list
@@ -86,43 +87,44 @@ const App = () => {
   // Render DOM
   //**********************************************************************
   return (
-    <div id="app">
+    <div className='app'>
+      {/*********** Some Basic Headers ***********/}
       <h1>
         Welcome to Liam's Employee App!
       </h1>
 
-      <br/>
 
       <h3> Filter Parameters: </h3>
 
       <br/>
 
-      <NameFilter
-        searchName={searchName}
-        updateSearchName={updateSearchName}
-      />
-      <br/>
-      <AgeFilter
-        lowerAge={lowerAge}
-        upperAge={upperAge}
-        updateLowerAge={updateLowerAge}
-        updateUpperAge={updateUpperAge}
-      />
-      <br/>
-      <DeptFilter
-        allDepts={deptList}
-        clickedDepts={clickedDepts}
-        updateClickedDepts={updateClickedDepts}
-      />
+      {/*********** Filtering functionality ***********/}
+      <div className='filters'>
+        <NameFilter
+          searchName={searchName}
+          updateSearchName={updateSearchName}
+        />
+        <br/>
+        <AgeFilter
+          lowerAge={lowerAge}
+          upperAge={upperAge}
+          updateLowerAge={updateLowerAge}
+          updateUpperAge={updateUpperAge}
+        />
+        <br/>
+        <DeptFilter
+          allDepts={deptList}
+          clickedDepts={clickedDepts}
+          updateClickedDepts={updateClickedDepts}
+        />
+      </div>
 
       <br/>
-      <br/>
 
+      {/*********** Button that actually filters ***********/}
       <button
         onClick={(e) => {
           // Filter the list when this button is clicked
-          //console.log(`Clicked. ${JSON.stringify(clickedDepts)}`);
-          console.log(`Clicked. ${lowerAge}, ${upperAge}`);
           filterList();
         }}
       >
@@ -131,6 +133,7 @@ const App = () => {
 
       <br/>
 
+      {/*********** Employee Table ***********/}
       <h3> Employees: </h3>
       <EmpTable list={empList}/>
 

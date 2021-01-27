@@ -32,7 +32,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localsConvention: 'camelCase',
+              // localsConvention: 'camelCase', this breaks it for some reason
               sourceMap: true
             }
           }
